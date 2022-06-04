@@ -4,8 +4,6 @@ import datetime
 import time
 import random
 
-now = datetime.datetime.now()
-
 URL = "http://localhost:4000/shearerpos"
 headers = {
   'Content-Type': 'application/json'
@@ -16,6 +14,7 @@ currentPosition = 0
 
 def getTimeAndPosition():
 	global reverse, currentPosition
+	now = datetime.datetime.now()
 	change = random.randint(1,10)
 	if (reverse):
 		if currentPosition - change < 0:
