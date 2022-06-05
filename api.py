@@ -4,6 +4,7 @@ from datetime import datetime
 
 app = FastAPI()
 
+# check if the shearer is working by comparing it's last emit. If last emit more than 10 seconds, then error.
 def statusCheck(timestamp):
 	timestamp = datetime.strptime(timestamp,"%Y-%m-%d %H:%M:%S.%f")
 	now = datetime.now()
@@ -16,6 +17,9 @@ def statusCheck(timestamp):
 async def shearerpos():
 	f = open('data.json')
 	data = json.load(f)
-	data['status'] = statusCheck(data['time'])
+	status = statusCheck(data['time'])
+	if status == "ERROR":
+		data['position'] = None
+	data['status'] = status
 	f.close()
 	return data

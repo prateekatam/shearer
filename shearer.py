@@ -30,8 +30,7 @@ def getTimeAndPosition():
 		else:
 			currentPosition = currentPosition + change
 
-	# json_string = json.dumps({"position": currentPosition})
-
+	# Emit. Nomally, write to a DB here. 
 	with open("data.json", "w") as i :
 		json.dump({"time": str(now), "position": currentPosition}, i)
 
