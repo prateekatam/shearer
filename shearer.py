@@ -3,11 +3,12 @@ import requests
 import datetime
 import time
 import random
+import json
 
-URL = "http://localhost:4000/shearerpos"
-headers = {
-  'Content-Type': 'application/json'
-}
+# URL = "http://localhost:4000/shearerpos"
+# headers = {
+#   'Content-Type': 'application/json'
+# }
 
 reverse = False
 currentPosition = 0
@@ -29,16 +30,20 @@ def getTimeAndPosition():
 		else:
 			currentPosition = currentPosition + change
 
+	# json_string = json.dumps({"position": currentPosition})
+
+	with open("data.json", "w") as i :
+		json.dump({"time": str(now), "position": currentPosition}, i)
+
 	return {"time": str(now), "position": currentPosition}
 
 def main():
 	while True:
 		data = getTimeAndPosition()
 		print(data)
-		r = requests.post(url = URL, headers = headers, json = data)
-		# extracting response text 
-		print("Res: ", r.status_code)
-		time.sleep(5)
+		# r = requests.post(url = URL, headers = headers, json = data)
+		# print("Res: ", r.status_code)
+		time.sleep(2)
 
 if __name__ == "__main__":
 	currentPosition = int(sys.argv[1])
