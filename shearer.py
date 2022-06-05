@@ -12,7 +12,7 @@ import json
 # }
 
 reverse = False
-currentPosition = 0
+currentPosition = 1
 
 def where_json(file_name):
     return os.path.exists(file_name)
@@ -22,8 +22,8 @@ def getTimeAndPosition():
 	now = datetime.datetime.now()
 	change = random.randint(1,10)
 	if (reverse):
-		if currentPosition - change < 0:
-			currentPosition = 0
+		if currentPosition - change < 1:
+			currentPosition = 1
 			reverse = False
 		else:
 			currentPosition = currentPosition - change
@@ -52,7 +52,7 @@ def main():
 		print(data)
 		# r = requests.post(url = URL, headers = headers, json = data)
 		# print("Res: ", r.status_code)
-		time.sleep(2)
+		time.sleep(5)
 
 if __name__ == "__main__":
 	currentPosition = int(sys.argv[1])
