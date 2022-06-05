@@ -1,0 +1,5 @@
+to start the shearer in positive direction (reverse = False) from position 10
+python .\shearer.py 10 False
+
+to start the FastAPI service
+uvicorn api:app --reload
