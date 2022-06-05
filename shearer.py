@@ -1,4 +1,5 @@
 import sys
+import os
 import requests
 import datetime
 import time
@@ -12,6 +13,9 @@ import json
 
 reverse = False
 currentPosition = 0
+
+def where_json(file_name):
+    return os.path.exists(file_name)
 
 def getTimeAndPosition():
 	global reverse, currentPosition
@@ -31,12 +35,18 @@ def getTimeAndPosition():
 			currentPosition = currentPosition + change
 
 	# Emit. Nomally, write to a DB here. 
-	with open("data.json", "w") as i :
+	with open("shearer_storage.json", "w") as i :
 		json.dump({"time": str(now), "position": currentPosition}, i)
 
 	return {"time": str(now), "position": currentPosition}
 
 def main():
+	if where_json('shearer_storage.json'):
+		pass
+	else:
+		with open('shearer_storage.json', 'w') as outfile:  
+				json.dump({}, outfile)	
+	
 	while True:
 		data = getTimeAndPosition()
 		print(data)
